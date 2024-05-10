@@ -1,0 +1,1 @@
+github_repo_name_from_artifactory="terraform_thi_from_artifactory_DEV"
