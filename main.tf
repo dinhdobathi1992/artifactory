@@ -23,7 +23,7 @@ resource "artifactory_access_token" "new_token" {
 
   lifecycle {
     replace_triggered_by = [
-      time_static.thoundsandmin
+      time_rotating.thoundsandmin.rfc3339
     ]
   }
 }
