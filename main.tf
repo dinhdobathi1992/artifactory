@@ -26,7 +26,7 @@ resource "artifactory_access_token" "new_token" {
       time_static.rotate
     ]
   }
-
+}
 resource "aws_secretsmanager_secret_version" "new_token" {
   secret_id     = data.aws_secretsmanager_secret.example.id
   secret_string = artifactory_access_token.new_token.access_token
