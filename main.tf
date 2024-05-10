@@ -11,6 +11,9 @@ resource "artifactory_access_token" "admin3333" {
 }
 resource "time_rotating" "thoundsandmin" {
   rotation_minutes = 64000
+  triggers  = {
+    "key"   = timestamp()
+  }
 }
 
 
