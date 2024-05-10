@@ -9,14 +9,18 @@ resource "artifactory_access_token" "admin3333" {
   username          = "jfrog_user"
   end_date_relative = "1m"
 }
-resource "time_rotating" "fivemin" {
-  rotation_minutes = 2
+resource "time_rotating" "thoundsandmin" {
+  rotation_minutes = 64000
 }
 
 
 resource "artifactory_access_token" "new_token" {
   username          = "jfrog_user"
-  end_date = time_rotating.fivemin.rotation_rfc3339
+  end_date = time_rotating.thoundsandmin.rotation_rfc3339
+
+  lifecycle {
+    replace_triggered_by = [ time_rotating.thoundsandmin ]
+  }
   }
 
 resource "aws_secretsmanager_secret_version" "new_token" {
