@@ -61,3 +61,8 @@ output "valid_until" {
   value = "${formatdate("YYYY-MM-DD", timeadd(time_rotating.thoundsandmin.rotation_rfc3339, "-2160h"))}"
   
 }
+
+output "token_rotate_date" {
+  value = formatdate("YYYY-MM-DD", time_rotating.rotate_date.rotation_rfc3339)
+  
+}
