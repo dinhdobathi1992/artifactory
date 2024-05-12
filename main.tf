@@ -10,7 +10,7 @@ resource "artifactory_access_token" "admin3333" {
   end_date_relative = "1m"
 }
 resource "time_rotating" "thoundsandmin" {
-  rotation_minutes = 64000
+  rotation_days = 365
 
 }
 resource "time_static" "thoundsandmin" {
@@ -41,5 +41,14 @@ data "aws_secretsmanager_secret_version" "by-version-stage" {
 }
 output "test_token_creation_date" {
   value = substr("${data.aws_secretsmanager_secret_version.by-version-stage.created_date}", 0, 10)
+  
+}
+
+
+output "token_expired_date" {
+  value = formatdate("YYYY-MM-DD", time_rotating.thoundsandmin.rotation_rfc3339)
+}
+output "valid_until" {
+  value = "${formatdate("YYYY-MM-DD", timeadd(time_rotating.thoundsandmin.rotation_rfc3339, "-2160h"))}"
   
 }
