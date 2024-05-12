@@ -22,6 +22,32 @@ resource "time_rotating" "rotate_date" {
   rotation_days = 275
 }
 
+#
+resource "time_rotating" "rotate_date_min" {
+  rotation_minutes = 5
+}
+
+resource "time_rotating" "expired_date_min" {
+  rotation_minutes = 10
+  lifecycle {
+    replace_triggered_by =  [ resource.time_rotating.rotate_date_min ]  
+  }
+}
+
+resource "artifactory_access_token" "new_token_rotate" {
+  username          = "jfrog_user"
+  end_date = time_rotating.expired_date_min.rotation_rfc3339
+
+  lifecycle {
+    replace_triggered_by = [
+      time_rotating.rotate_date_min
+    ]
+  }
+}
+
+
+#
+
 resource "time_static" "thoundsandmin" {
   rfc3339 = time_rotating.thoundsandmin.rfc3339
 }
