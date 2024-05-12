@@ -11,8 +11,12 @@ resource "artifactory_access_token" "admin3333" {
 }
 resource "time_rotating" "thoundsandmin" {
   rotation_days = 365
-
 }
+
+resource "time_rotating" "rotate_date" {
+  rotation_days = 275
+}
+
 resource "time_static" "thoundsandmin" {
   rfc3339 = time_rotating.thoundsandmin.rfc3339
 }
@@ -23,7 +27,7 @@ resource "artifactory_access_token" "new_token" {
 
   lifecycle {
     replace_triggered_by = [
-      time_rotating.thoundsandmin.rfc3339
+      time_rotating.rotate_date
     ]
   }
 }
