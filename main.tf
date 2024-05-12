@@ -26,11 +26,11 @@ resource "time_rotating" "rotate_date" {
 resource "time_rotating" "tenmin" {
   rotation_minutes =  10
   triggers  = {
-    "key"   = time_rotating.fiveminmin.rotation_rfc3339
+    "key"   = time_rotating.fivemin.rotation_rfc3339
   }
 }
 
-resource "time_rotating" "fiveminmin" {
+resource "time_rotating" "fivemin" {
   rotation_minutes =  5
 }
 
@@ -93,11 +93,11 @@ output "token_rotate_date" {
 }
 
 output "token_rotate_date_min" {
-  value = time_rotating.rotate_date_min.rotation_rfc3339
+  value = time_rotating.fivemin.rotation_rfc3339
 }
 
 output "expired_date_min" {
-  value = time_rotating.expired_date_min.rotation_rfc3339
+  value = time_rotating.tenmin.rotation_rfc3339
 }
 
 
