@@ -38,10 +38,10 @@ resource "time_rotating" "fivemin" {
 
 resource "artifactory_access_token" "new_token_rotate" {
   username          = "jfrog_user"
-  end_date = time_rotating.expired_date_min.rotation_rfc3339
+  end_date = time_rotating.tenmin.rotation_rfc3339
 
   triggers  = {
-    "key"   = time_rotating.fiveminmin.rotation_rfc3339
+    "key"   = time_rotating.fivemin.rotation_rfc3339
   }
 }
 
