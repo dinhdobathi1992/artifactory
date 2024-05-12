@@ -90,5 +90,15 @@ output "valid_until" {
 
 output "token_rotate_date" {
   value = formatdate("YYYY-MM-DD", time_rotating.rotate_date.rotation_rfc3339)
-  
 }
+
+output "token_rotate_date_min" {
+  value = time_rotating.rotate_date_min.rotation_rfc3339
+}
+
+output "expired_date_min" {
+  value = time_rotating.expired_date_min.rotation_rfc3339
+}
+
+
+
