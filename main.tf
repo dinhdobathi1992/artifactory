@@ -11,6 +11,11 @@ resource "artifactory_access_token" "admin3333" {
 }
 resource "time_rotating" "thoundsandmin" {
   rotation_days = 365
+  lifecycle {
+    replace_triggered_by = [
+      time_rotating.rotate_date
+    ]
+  }
 }
 
 resource "time_rotating" "rotate_date" {
