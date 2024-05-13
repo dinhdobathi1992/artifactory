@@ -96,5 +96,9 @@ output "expired_date_min" {
   value = time_rotating.tenmin.rotation_rfc3339
 }
 
+output "expired_date_min_UNIX" {
+  value = time_rotating.tenmin.unix
+}
+
 
 
