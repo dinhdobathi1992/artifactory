@@ -107,5 +107,8 @@ output "expired_date_min_UNIX" {
   value = time_rotating.tenmin.unix
 }
 
+output "resource_creation_date" {
+  value = formatdate("YYYY-MM-DD", time_static.resource_creation_date.rfc3339)
+}
 
 
