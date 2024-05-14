@@ -48,6 +48,13 @@ resource "time_static" "thoundsandmin" {
   rfc3339 = time_rotating.thoundsandmin.rfc3339
 }
 
+resource "time_static" "resource_creation_date" {
+  triggers  = {
+    "key"   = artifactory_access_token.new_token.id
+  }
+}
+
+
 resource "artifactory_access_token" "new_token" {
   username          = "jfrog_user"
   end_date = time_rotating.thoundsandmin.rotation_rfc3339
