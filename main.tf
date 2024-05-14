@@ -50,7 +50,7 @@ resource "time_static" "thoundsandmin" {
 
 resource "time_static" "resource_creation_date" {
   triggers  = {
-    "key"   = artifactory_access_token.new_token
+    "key"   = artifactory_access_token.new_token.end_date
   }
 }
 
