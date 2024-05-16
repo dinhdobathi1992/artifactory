@@ -55,17 +55,17 @@ resource "null_resource" "check_token_created" {
 }
 
 resource "local_file" "store_token_create_date" {
-  content  = local.current_token_creation_date
-  filename = "token_creation_date.txt"
+  content  = jsonencode( {token_creation_date = local.current_token_creation_date})
+  filename = "${path.module}/previous_token_creation_date.json"
 }
 
 data "external" "previous_token_creation_date" {
-  program = ["bash", "-c", "cat token_creation_date.txt"]
+  program = ["sh", "${path.module}/previous_token_creation_date.sh"]
   depends_on = [ local_file.store_token_create_date ]
 }
 
 locals {
-  previous_token_creation_date = data.external.previous_token_creation_date.result["end_date"]
+  previous_token_creation_date = data.external.previous_token_creation_date.result["token_creation_date"]
   token_created = local.current_token_creation_date != local.previous_token_creation_date
 
 }
