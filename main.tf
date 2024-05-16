@@ -143,5 +143,5 @@ output "resource_creation_date" {
 }
 
 output "previous_token_creation_date" {
- value = previous_token_creation_date
+ value = data.external.previous_token_creation_date.result["token_creation_date"
 }
