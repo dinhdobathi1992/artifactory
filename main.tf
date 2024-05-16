@@ -60,7 +60,7 @@ resource "local_file" "store_token_create_date" {
 }
 
 data "external" "previous_token_creation_date" {
-  program = ["sh", "${path.module}/previous_token_creation_date.sh"]
+  program = ["sh", "${path.module}/read_previous_token_creation_date.sh"]
   depends_on = [ local_file.store_token_create_date ]
 }
 
