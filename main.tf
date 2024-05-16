@@ -41,8 +41,39 @@ resource "artifactory_access_token" "new_token_rotate" {
   end_date = time_rotating.tenmin.rotation_rfc3339
 }
 
-
+locals {
+  current_token_creation_date = artifactory_access_token.new_token_rotate.end_date
+}
 #
+
+resource "null_resource" "check_token_created" {
+  depends_on = [ artifactory_access_token.new_token_rotate ]
+  
+  triggers = {
+    end_date = artifactory_access_token.new_token_rotate.end_date
+  }
+}
+
+resource "local_file" "store_token_create_date" {
+  content  = local.current_token_creation_date
+  filename = "token_creation_date.txt"
+}
+
+data "external" "previous_token_creation_date" {
+  program = ["bash", "-c", "cat token_creation_date.txt"]
+  
+}
+
+locals {
+  previous_token_creation_date = data.external.previous_token_creation_date.result["end_date"]
+  token_created = local.current_token_creation_date != local.previous_token_creation_date
+
+}
+
+output "token_created" {
+  value = local.token_created
+  
+}
 
 resource "time_static" "thoundsandmin" {
   rfc3339 = time_rotating.thoundsandmin.rfc3339
