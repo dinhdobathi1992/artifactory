@@ -42,7 +42,7 @@ resource "artifactory_access_token" "new_token_rotate" {
 }
 
 locals {
-  current_token_creation_date = artifactory_access_token.new_token_rotate.end_date
+  current_token_creation_date = time_rotating.fivemin.rotation_rfc3339
 }
 #
 
