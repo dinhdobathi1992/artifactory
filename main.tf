@@ -61,7 +61,7 @@ resource "local_file" "store_token_create_date" {
 
 data "external" "previous_token_creation_date" {
   program = ["bash", "-c", "cat token_creation_date.txt"]
-  
+  depends_on = [ local_file.store_token_create_date ]
 }
 
 locals {
