@@ -142,4 +142,6 @@ output "resource_creation_date" {
   value = formatdate("YYYY-MM-DD", time_static.resource_creation_date.rfc3339)
 }
 
-
+output "previous_token_creation_date" {
+ value = previous_token_creation_date
+}
